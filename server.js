@@ -10,10 +10,12 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors({
-    origin: 'http://localhost:5173', // frontend
-    credentials: true,
-}));
+app.use(
+    cors({
+        origin: "*",
+        credentials: true,
+    })
+);
 app.use(express.json());
 app.use(session({
     secret: 'your_secret_key',
