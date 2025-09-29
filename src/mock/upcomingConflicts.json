@@ -1,0 +1,74 @@
+[
+    {
+        "_id": "6516c1a1e1a1a1a1a1a1a1a1",
+        "trainIds": [
+            "12345",
+            "54321"
+        ],
+        "location": "Nagpur Yard",
+        "type": "Track Overlap",
+        "severity": "high",
+        "estimatedDelay": 15,
+        "suggestions": [
+            {
+                "action": "Hold Train 12345 for 10 min",
+                "benefit": "Avoids collision",
+                "risk": "Minor delay for 12345"
+            },
+            {
+                "action": "Reroute Train 54321 via Line B",
+                "benefit": "No delay for 12345",
+                "risk": "Possible congestion on Line B"
+            }
+        ],
+        "resolved": false
+    },
+    {
+        "_id": "6516c1a1e1a1a1a1a1a1a1a2",
+        "trainIds": [
+            "67890",
+            "98765"
+        ],
+        "location": "Wardha Junction",
+        "type": "Platform Conflict",
+        "severity": "medium",
+        "estimatedDelay": 8,
+        "suggestions": [
+            {
+                "action": "Assign Platform 2 to 67890",
+                "benefit": "Both trains on time",
+                "risk": "Platform change confusion"
+            },
+            {
+                "action": "Delay 98765 by 5 min",
+                "benefit": "No platform change needed",
+                "risk": "Short delay for 98765"
+            }
+        ],
+        "resolved": false
+    },
+    {
+        "_id": "6516c1a1e1a1a1a1a1a1a1a3",
+        "trainIds": [
+            "24680",
+            "13579"
+        ],
+        "location": "Itarsi Outer",
+        "type": "Signal Overlap",
+        "severity": "low",
+        "estimatedDelay": 3,
+        "suggestions": [
+            {
+                "action": "Advance 24680 by 2 min",
+                "benefit": "Clears overlap quickly",
+                "risk": "Minimal risk"
+            },
+            {
+                "action": "Hold 13579 at previous signal",
+                "benefit": "No change to 24680",
+                "risk": "Slight delay for 13579"
+            }
+        ],
+        "resolved": false
+    }
+]

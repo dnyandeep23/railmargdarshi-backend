@@ -1,19 +1,23 @@
 const mongoose = require('mongoose');
 
+const scheduleSchema = new mongoose.Schema({
+    station: String,
+    arrival: String,
+    departure: String,
+    status: String
+}, { _id: false });
+
 const trainSchema = new mongoose.Schema({
-    trainId: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    route: [{
-        stationId: { type: String, ref: 'Station' },
-        scheduledArrival: { type: String },
-        scheduledDeparture: { type: String },
-    }],
-    currentStatus: { type: String, enum: ['running', 'delayed', 'completed', 'cancelled'], default: 'running' },
-    signalHistory: [{
-        stationId: { type: String },
-        signalStatus: { type: String },
-        timestamp: { type: Date, default: Date.now }
-    }]
-}, { timestamps: true });
+    id: { type: String, required: true, unique: true },
+    name: String,
+    route: String,
+    currentStation: String,
+    nextStation: String,
+    status: String,
+    delay: Number,
+    speed: Number,
+    zone: String,
+    schedule: [scheduleSchema]
+});
 
 module.exports = mongoose.model('Train', trainSchema);
