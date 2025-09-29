@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./src/config/db');
 const serverless = require('serverless-http'); // ✅ For Vercel
+const session = require('express-session');
 
 // ✅ Connect to DB only once
 connectDB();
@@ -10,13 +11,31 @@ connectDB();
 const app = express();
 
 // ✅ CORS Configuration for all origins
-app.use(cors());
+const allowedOrigins = [
+    'https://railmargdarshi-frontend.vercel.app',
+    'http://localhost:5173', // local dev
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
+    credentials: true,
+}));
 
 // ✅ Express body parser
 app.use(express.json());
 
-// ⚠️ Remove express-session for serverless (not persistent)
-// If you need sessions, use JWT or a DB-backed session store
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'my-secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: process.env.NODE_ENV === 'production' }
+}));
 
 // ✅ Routes
 app.use('/api/admin', require('./src/routes/admin.routes'));
