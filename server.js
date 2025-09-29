@@ -10,13 +10,28 @@ connectDB();
 const app = express();
 
 // ✅ CORS Configuration for all origins
+const allowedOrigins = [
+    'https://railmargdarshi-frontend.vercel.app',
+    'http://localhost:5173', // local dev
+];
+
 app.use(
     cors({
-        origin: '*', // allow all origins
+        origin: (origin, callback) => {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true,
     })
 );
+
+// ✅ Ensure OPTIONS is handled to prevent redirect
+app.options('*', cors());
 
 // ✅ Express body parser
 app.use(express.json());
